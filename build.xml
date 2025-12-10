@@ -25,12 +25,15 @@
 		<delete dir="${temp.dir}" />
 		<mkdir dir="${temp.dir}" />
 
-		<javac srcdir="${src.dir}" destdir="${temp.dir}" verbose="true" optimize="true" target="1.5">
+		<javac srcdir="${src.dir}" destdir="${temp.dir}" debug="true" verbose="true" optimize="true" target="1.8">
 			<classpath refid="dkimfjm.classpath" />
 		</javac>
 
 		<jar destfile="DKIMforJavaMail.jar" basedir="${temp.dir}" includes="**/*.class" />
-		
+
+		<jar destfile="DKIMforJavaMail-src.jar">
+			<fileset dir="${src.dir}" includes="**/*.java"/>
+		</jar>
 		<delete dir="${temp.dir}" />
 	</target>
 	
