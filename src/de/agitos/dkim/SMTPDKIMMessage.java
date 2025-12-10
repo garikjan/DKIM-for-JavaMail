@@ -147,14 +147,8 @@ public class SMTPDKIMMessage extends SMTPMessage {
 				final byte[] buffer = new byte[BUFFER_SIZE + 128/*reserve for inserting =2E instead of dot character*/];
 				int bytesRead;
 				byte lastWrittenByte = -1;
-				final boolean quotedPrintable = this.getEncoding() != null && this.getEncoding().equalsIgnoreCase("quoted-printable");
 				while ((bytesRead = is.read(buffer, 0, BUFFER_SIZE)) > 0) {
-					final int bytesToWrite;
-					if(quotedPrintable) {
-						bytesToWrite = doDotStuffing(lastWrittenByte, buffer, bytesRead);
-					} else {
-						bytesToWrite = bytesRead;
-					}
+					final int bytesToWrite = doDotStuffing(lastWrittenByte, buffer, bytesRead);
                     osBody.write(buffer, 0, bytesToWrite);
 					lastWrittenByte = buffer[bytesToWrite-1];
 				}
